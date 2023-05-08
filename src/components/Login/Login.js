@@ -30,9 +30,12 @@ const Login = (props) => {
   const [emailState, emailDispatch] = useReducer(emailReducer, ({ value: '', isValid: null }))
   const [passwordState, passwordDispatch] = useReducer(passwordReducer, ({ value: '', isValid: null }))
 
-  
-  const {isValid : emailIsValid} = emailState;
+  // If we don't want to pass the entire object as dependency, we can pass only specific props of obj like this
+  const {isValid : emailIsValid /**Just an Alias for isValid prop of emailState */} = emailState;
   const {isValid: passwordIsValid} =  passwordState;
+
+
+  //used useEffect as there might be possiblity of getting an older state in setIsFormValid of emailHandler and passwordHandler; useEffect assures that we will current, updates state only 
   useEffect(() => {
     const timer = setTimeout(() => {
       setFormIsValid(emailState.isValid&& passwordState.isValid)
@@ -43,7 +46,7 @@ const Login = (props) => {
 
     })
 
-  }, [emailIsValid, passwordIsValid])
+  }, [emailIsValid, passwordIsValid]) // also [emailState.emailIsValid, passwordState.passwordIsValid]
 
   useEffect(() => {
     const timer = setTimeout(() => {
