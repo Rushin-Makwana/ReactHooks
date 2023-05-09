@@ -11,6 +11,9 @@ const Login = (props) => {
   // const [passwordIsValid, setPasswordIsValid] = useState();
   const [formIsValid, setFormIsValid] = useState(false);
   const authCtx = useContext(AuthContext)
+  const emailInputRef = useRef();
+  const passwordInputRef = useRef();
+
   const emailReducer = (state, action) => {
     if (action.type === 'USER_INPUT')
       return { value: action.val, isValid: action.val.includes('@') }
@@ -29,8 +32,6 @@ const Login = (props) => {
   }
   const [emailState, emailDispatch] = useReducer(emailReducer, ({ value: '', isValid: null }))
   const [passwordState, passwordDispatch] = useReducer(passwordReducer, ({ value: '', isValid: null }))
-  const emailInputRef = useRef();
-  const passwordInputRef = useRef();
 
   // If we don't want to pass the entire object as dependency, we can pass only specific props of obj like this
   const { isValid: emailIsValid /**Just an Alias for isValid prop of emailState */ } = emailState;
@@ -98,11 +99,11 @@ const Login = (props) => {
     }
     else if(!emailIsValid)
     {
-      emailInputRef.current.focus();
+      emailInputRef.current.focus()
     }
     else
     {
-      passwordInputRef.current.focus();
+      passwordInputRef.current.focus()
     }
   };
 
